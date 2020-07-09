@@ -1,7 +1,11 @@
 package example;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 public class Test {
 
@@ -18,7 +22,24 @@ public class Test {
           new Dish("salmon", false, 450, Dish.Type.FISH)
         );
 
+        System.out.println(example1(menu));
+    }
 
+    private static List<String> example1(List<Dish> menu) {
+        return menu.stream()
+                .filter(d -> d.getCalories() > 300)
+                .map(Dish::getName)
+                .limit(3)
+                .collect(toList());
+    }
+
+    private static void example2() {
+        List<String> title = Arrays.asList("Java8", "In", "Action");
+        Stream<String> s = title.stream();
+        s.forEach(System.out::println);
+
+        // 스트림이 이미 소비 되었기때문에 IllegalStateException 발생
+        s.forEach(System.out::println);
     }
 
 }
