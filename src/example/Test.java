@@ -1,6 +1,5 @@
 package example;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
@@ -27,10 +26,14 @@ public class Test {
 
     private static List<String> example1(List<Dish> menu) {
         return menu.stream()
-                .filter(d -> d.getCalories() > 300)
+                .filter(d -> threeHundredCaloriesGreaterThanCheck(d.getCalories()))
                 .map(Dish::getName)
                 .limit(3)
                 .collect(toList());
+    }
+
+    private static boolean threeHundredCaloriesGreaterThanCheck(int calories) {
+        return calories > 300;
     }
 
     private static void example2() {
