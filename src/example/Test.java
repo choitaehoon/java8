@@ -2,6 +2,7 @@ package example;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
@@ -21,7 +22,9 @@ public class Test {
           new Dish("salmon", false, 450, Dish.Type.FISH)
         );
 
-        System.out.println(example1(menu));
+//        System.out.println(example1(menu));
+//        example4();
+        solveQuiz();
     }
 
     private static List<String> example1(List<Dish> menu) {
@@ -43,6 +46,60 @@ public class Test {
 
         // 스트림이 이미 소비 되었기때문에 IllegalStateException 발생
         s.forEach(System.out::println);
+    }
+
+    private static void example3(List<Dish> menu) {
+        List<Dish> vegetarianMenu = menu.stream()
+                    .filter(Dish::isVegetarian)
+                    .collect(toList());
+    }
+
+    private static void example4() {
+        List<Integer> numbers = Arrays.asList(1, 2, 1, 3, 3, 2, 4);
+
+        numbers.stream()
+                .filter(i -> i % 2 == 0)
+                .distinct()
+                .forEach(System.out::println);
+    }
+
+    private static void example5(List<Dish> menu) {
+        List<Dish> dishes = menu.stream()
+                    .filter(d -> threeHundredCaloriesGreaterThanCheck(d.getCalories()))
+                    .limit(3)
+                    .collect(toList());
+    }
+
+    private static void example6(List<Dish> menu) {
+        List<Dish> dishes = menu.stream()
+                .filter(d -> d.getCalories() > 300)
+                .skip(2)
+                .collect(toList());
+    }
+
+    private static void example5_1(List<Dish> menu) {
+        List<Dish> dishes = menu.stream()
+                    .filter(d -> d.getType() == Dish.Type.MEAT)
+                    .limit(2)
+                    .collect(toList());
+    }
+
+    private static void example7(List<Dish> menu) {
+        List<String> dishNames = menu.stream()
+                    .map(Dish::getName)
+                    .collect(toList());
+
+        List<String> words = Arrays.asList("Java8", "Lambdas", "In", "Action");
+        List<Integer> wordLengths = words.stream()
+                    .map(String::length)
+                    .collect(toList());
+    }
+
+    private static void solveQuiz() {
+        int[] numberArray = {1, 2, 3, 4, 5};
+        Arrays.stream(numberArray)
+                .map(i -> (int) Math.pow(i, 2))
+                 .forEach(System.out::println);
     }
 
 }
